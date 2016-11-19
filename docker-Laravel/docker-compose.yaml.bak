@@ -1,0 +1,58 @@
+version: '2'
+
+services:
+
+    data:
+        image: abelit/docker-laravel-data:v1
+        volumes:
+        - "./webdata:/data"
+        privileged: true
+
+    db:
+        image: mysql
+        volumes:
+        - "./.dbdata/mysqldb:/var/lib/mysql"
+        ports:
+            - "3306:3306"
+        privileged: true
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: dataforum
+            MYSQL_DATABASE: dataforum
+            MYSQL_USER: dataforum
+            MYSQL_PASSWORD: dataforum
+
+    php:
+        image: abelit/docker-laravel-phpfpm:v1
+        volumes_from:
+            - data
+        links:
+            - db:db
+        privileged: true
+
+    web:
+        image: ableit/docker-laravel-nginx:v1
+        volumes_from:
+            - data
+        links:
+            - php:fpm
+        ports:
+            - "8080:80"
+        privileged: true
+
+    composer:
+        image: abelit/docker-laravel-composer:v1
+        volumes_from:
+            - data
+
+    artisan:
+        image: abelit/docker-laravel-artisan:v1
+        volumes_from:
+            - data
+        links:
+            - db:db
+
+    bower:
+        image: abelit/docker-laravel-bower:v1
+        volumes_from:
+            - data
