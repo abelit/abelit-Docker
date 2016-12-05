@@ -1,32 +1,37 @@
 version: '2'
 
 services:
-  mysql:
-    image: mysql:latest
-    volumes:
-      - ./mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    privileged: true
-    restart: always
+### Applications Code Container #############################
 
-  web:
-    depends_on:
-      - db
-    image: tomcat
-    volumes:
-      - .:/usr/local/tomcat/webapps/ROOT
-    ports:
-      - "8888:8080"
-    links:
-      - mysql:mysql
-    privileged: true
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: mysql:3306
-      WORDPRESS_DB_PASSWORD: wordpress
+    applications:
+        image: tianon/true
+        volumes:
+            - ./code:/usr/local/tomcat/webapps/ROOT
+
+### Tomcat Container #############################
+    tomcat:
+        image: tomcat
+        volumes_from:
+            - applications
+        ports:
+            - "8888:8080"
+        links:
+            - mysql:mysql
+        privileged: true
+        restart: always
+
+### Mysql Container #############################
+    mysql:
+        image: mysql:latest
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: wordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        privileged: true
+        restart: always
+        
