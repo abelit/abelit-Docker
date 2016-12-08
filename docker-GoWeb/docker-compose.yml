@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    applications:
+        image: tianon/true
+        volumes:
+            - /home/abelit/workspace/abelit-Program/Golang:/go
+#            - ../sample/:/var/www/sample
+
+### pynotebook Utilities Container ###########################
+
+    goweb:
+        image: golang
+        command: bee run src/dataforum.org
+        volumes_from:
+            - applications
+        ports:
+            - "8080:8080"
