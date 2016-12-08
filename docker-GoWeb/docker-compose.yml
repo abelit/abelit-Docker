@@ -7,7 +7,7 @@ services:
     applications:
         image: tianon/true
         volumes:
-            - /home/abelit/workspace/abelit-Program/Golang:/go
+            - $PWD:/go
 #            - ../sample/:/var/www/sample
 
 ### pynotebook Utilities Container ###########################
