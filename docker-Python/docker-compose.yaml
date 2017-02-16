@@ -1,0 +1,149 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    applications:
+        image: tianon/true
+        volumes:
+            - ./notebooks:/notebooks
+#            - ../sample/:/var/www/sample
+
+### pynotebook Utilities Container ###########################
+
+    pynotebook:
+        build:
+            context: ./pynotebook
+            args:
+                - PIP_UPGRADE=true
+                - INSTALL_SCIENCE_PACKAGE=true
+                - INSTALL_SQLITE=false
+                - INSTALL_PYMYSQL=true
+                - INSTALL_ORACLE=false
+                - INSTALL_POSTGRE=false
+                - INSTALL_PYMONGO=false
+                - INSTALL_REDIS=false
+                - INSTALL_GRAPHIC=false
+                - INSTALL_SCRAPY=false
+                - INSTALL_DJANGO=false
+                - INSTALL_CONFIGPARSER=false
+        command: jupyter notebook
+        volumes_from:
+            - applications
+        ports:
+            - "8888:8888"
+
+### MySQL Container #########################################
+
+    mysql:
+        image: mysql
+        volumes:
+            - mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: abelit
+            MYSQL_USER: abelit
+            MYSQL_PASSWORD: abelit
+            MYSQL_ROOT_PASSWORD: abelit
+
+### MariaDB Container #######################################
+
+    mariadb:
+        image: mariadb
+        volumes:
+            - mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: homestead
+            MYSQL_USER: homestead
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: root
+
+### PostgreSQL Container ####################################
+
+    postgres:
+        image: postgres
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: homestead
+            POSTGRES_USER: homestead
+            POSTGRES_PASSWORD: secret
+
+### PostgreSQL PostGis Container ############################
+
+    postgres-postgis:
+        image: postgres-postgis
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: homestead
+            POSTGRES_USER: homestead
+            POSTGRES_PASSWORD: secret
+
+### MongoDB Container #######################################
+
+    mongo:
+        image: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - mongo:/data/db
+
+### Redis Container #########################################
+
+    redis:
+        image: redis
+        volumes:
+            - redis:/data
+        ports:
+            - "6379:6379"
+
+### phpMyAdmin Container ####################################
+
+    phpmyadmin:
+        image: phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+            MYSQL_USER: homestead
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8080:80"
+        links:
+            # for mysql container
+            - "mysql:db"
+            # for mariadb container
+            # - "mariadb:db"
+
+### pgAdmin Container #######################################
+
+    pgadmin:
+        image: pgadmin
+        ports:
+            - "5050:5050"
+        links:
+            - postgres
+
+### Volumes Setup ###########################################
+
+volumes:
+    mysql:
+        driver: "local"
+    postgres:
+        driver: "local"
+    redis:
+        driver: "local"
+    mariadb:
+        driver: "local"
+    mongo:
+        driver: "local"
+    phpmyadmin:
+        driver: "local"
