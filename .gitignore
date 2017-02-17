@@ -1,1 +1,8 @@
 docker-Tomcat/data/*
+docker-Django/data/*
+docker-Python/data/*
+docker-Wordpress/data/*
+docker-Laravel/data/*
+docker-GoWeb/data/*
+docker-Node/data/*
+docker-Django/data/mysqldb/*

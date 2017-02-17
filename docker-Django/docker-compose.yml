@@ -1,22 +1,134 @@
 version: '2'
-services:
-  db:
-    image: mysql
-    volumes:
-      - ../data/mysqldb:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: django
-      MYSQL_DATABASE: django
-      MYSQL_USER: django
-      MYSQL_PASSWORD: django
 
-  wordpress:
-    image: django
-    command: ./manage.py runserver
-    volumes:
-      - /home/abelit/workspace/django/src/app/dataforum:/usr/src/app
-    links:
-      - db
-    ports:
-      - "8000:8000"
+services:
+### Applications Code Container #############################
+    applications:
+        image: tianon/true
+        volumes:
+            - ./src/app/dataforum:/usr/src/app
+            # - ../sample/:/var/www/sample
+
+    django:
+        image: django
+        command: python ./usr/src/app/manage.py runserver 0.0.0.0:8000
+        volumes_from:
+            - applications
+        # links:
+        #     - mysql
+        ports:
+            - "8000:8000"
+
+
+### MySQL Container #########################################
+
+    mysql:
+        image: mysql
+        volumes:
+            - mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: django
+            MYSQL_USER: django
+            MYSQL_PASSWORD: django
+            MYSQL_ROOT_PASSWORD: django
+
+### MariaDB Container #######################################
+
+    mariadb:
+        image: mariadb
+        volumes:
+            - mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: django
+            MYSQL_USER: django
+            MYSQL_PASSWORD: django
+            MYSQL_ROOT_PASSWORD: root
+
+### PostgreSQL Container ####################################
+
+    postgres:
+        image: postgres
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: django
+            POSTGRES_USER: django
+            POSTGRES_PASSWORD: django
+
+### PostgreSQL PostGis Container ############################
+
+    postgres-postgis:
+        image: postgres-postgis
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: django
+            POSTGRES_USER: django
+            POSTGRES_PASSWORD: django
+
+### MongoDB Container #######################################
+
+    mongo:
+        image: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - mongo:/data/db
+
+### Redis Container #########################################
+
+    redis:
+        image: redis
+        volumes:
+            - redis:/data
+        ports:
+            - "6379:6379"
+
+### phpMyAdmin Container ####################################
+
+    phpmyadmin:
+        image: phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+            MYSQL_USER: django
+            MYSQL_PASSWORD: django
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8080:80"
+        links:
+            # for mysql container
+            - "mysql:db"
+            # for mariadb container
+            # - "mariadb:db"
+
+### pgAdmin Container #######################################
+
+    pgadmin:
+        image: pgadmin
+        ports:
+            - "5050:5050"
+        links:
+            - postgres
+
+### Volumes Setup ###########################################
+
+volumes:
+    mysql:
+        driver: "local"
+    postgres:
+        driver: "local"
+    redis:
+        driver: "local"
+    mariadb:
+        driver: "local"
+    mongo:
+        driver: "local"
+    phpmyadmin:
+        driver: "local"
