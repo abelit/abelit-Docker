@@ -6,3 +6,4 @@ docker-Laravel/data/*
 docker-GoWeb/data/*
 docker-Node/data/*
 docker-Django/data/mysqldb/*
+**/__pycache__
