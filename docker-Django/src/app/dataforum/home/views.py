@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 # Create your views here.
-from django.http import HttpResponse
- 
+
 def index(request):
-    return HttpResponse(u"欢迎光临 abelit's网站!")
+    #return HttpResponse(u"欢迎光临 abelit的网站!")
+    return render(request, 'home.html')

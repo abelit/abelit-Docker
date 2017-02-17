@@ -1,9 +1,9 @@
 version: '2'
 services:
-  db:
+  mysql:
     image: mysql
     volumes:
-      - ./data/mysqldb:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: django
@@ -17,6 +17,6 @@ services:
     volumes:
       - ./src/app:/usr/src/app
     links:
-      - db
+      - mysql
     ports:
       - "8000:8000"
