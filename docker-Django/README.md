@@ -9,3 +9,4 @@
 > docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD":/usr/src/app -w /usr/src/app django django-admin.py startproject mysite
 
 
+> docker run -it --rm -v /home/abelit/workspace/abelit-Docker/docker-Django/src/app/:/usr/src/app -w /usr/src/app django django-admin startproject mysite
