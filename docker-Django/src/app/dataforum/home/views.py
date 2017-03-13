@@ -8,3 +8,6 @@ def index(request):
     #return HttpResponse(u"欢迎光临 abelit的网站!")
     today = datetime.datetime.now().date()
     return render(request, 'home.html',{'today': today})
+
+def test(request):
+	return render(request, 'test.html')
