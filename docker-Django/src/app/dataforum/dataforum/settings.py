@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'home',
     'report'
 ]
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'dataforum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Added by abelit
+        'DIRS': [],#[os.path.join(BASE_DIR, 'templates')], # Added by abelit
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,7 +138,7 @@ STATICFILES_DIRS = (
 )
 
 # Set login url for authentication
-# LOGIN_URL = '/accounts/signin/'
+# LOGIN_URL = '/account/login/'
 
 # # Custom allauth settings
 # # Use email as the primary identifier

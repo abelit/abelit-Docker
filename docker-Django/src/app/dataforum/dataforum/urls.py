@@ -19,12 +19,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/password_reset/$', auth_views.password_reset, {'template_name':'registration/password_reset_form.html'},name='password_reset'),
-    url(r'^accounts/password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
-    url(r'^accounts/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^accounts/reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
-    
+    url(r'^accounts/', include('account.urls')),
     url(r'^', include('home.urls', namespace="home")),
     url(r'^report/', include('report.urls', namespace="report")),
 ]

@@ -37,7 +37,7 @@
 	            <p class="center login-form-text">欢迎登陆数据园，我们已经准备为您提供服务！</p>
 	            <div class="htmleaf-links">
 				<a class="htmleaf-icon icon-htmleaf-home-outline" href="{% url 'home:index' %}" title="数园之家"><span> 数园之家</span></a>
-				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="{% url 'home:register' %}" title="注册页面" target="_blank"><span> 注册页面</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="{% url 'register' %}" title="注册页面" target="_blank"><span> 注册页面</span></a>
 			</div>
 	          </div>
 	        </div>
@@ -70,7 +70,7 @@
 						 <label for="password-again">验证码</label>
 					 </div>
 					 <div>
-						<img src="{% url 'home:verify_code' %}" alt="" id="vcode">
+						<img src="{% url 'verify_code' %}" alt="" id="vcode">
 						<label for="password-again">点击更换验证码</label>
 					 </div>
 					</div>
@@ -90,7 +90,7 @@
 	        </div>
 	        <div class="row">
 	          <div class="input-field col s6 m6 l6">
-	            <p class="margin medium-small"><a href="{% url 'home:register' %}">现在注册!</a></p>
+	            <p class="margin medium-small"><a href="{% url 'register' %}">现在注册!</a></p>
 	          </div>
 	          <div class="input-field col s6 m6 l6">
 	              <p class="margin right-align medium-small"><a href="{% url 'password_reset' %}">忘记密码?</a></p>
@@ -130,7 +130,7 @@
 
 				$.ajax({
 					type: "POST",
-					url: "{% url 'home:login' %}",
+					url: "{% url 'login' %}",
 					data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken, 'verify_code': verify_code},
 					dataType: "json",
 					success: function(result){
