@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'report'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'dataforum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Added by abelit
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,16 +82,16 @@ WSGI_APPLICATION = 'dataforum.wsgi.application'
 #     }
 # }
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'django',  
-        'USER': 'django',  
-        'PASSWORD': 'django',  
-        'HOST': 'mysql',  
-        'PORT': '3306',  
-    }  
-}  
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': 'django',
+        'HOST': 'mysql',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -114,9 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -128,4 +129,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+# STATIC_URL = '/static/'
+STATIC_PATH = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
+
+# Set login url for authentication
+# LOGIN_URL = '/accounts/signin/'
+
+# # Custom allauth settings
+# # Use email as the primary identifier
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# # Make email verification mandatory to avoid junk email accounts
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# # Eliminate need to provide username, as it's a very old practice
+# ACCOUNT_USERNAME_REQUIRED = False
+
+EMAIL_HOST = "smtp.163.com"   # 服务器
+EMAIL_PORT = 25               # 一般情况下都为25
+EMAIL_HOST_USER = "ychenid@163.com"   # 账号
+EMAIL_HOST_PASSWORD = "chen15285649896."  # 密码
+EMAIL_USE_TLS = True             # 一般都为False
+EMAIL_FROM = "ychenid@163.com"         # 邮箱来自
+
+DEFAULT_FROM_EMAIL = "ychenid@163.com"
+SERVER_EMAIL = "ychenid@163.com"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

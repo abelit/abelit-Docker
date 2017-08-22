@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+{% load static %}
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>探索大数据之美</title>
+<meta name="description"
+	content="Come aboard the simplest social media management software. Monitor, Publish and Analyze all your social media posts from a single location.">
+<meta name="keywords"
+	content="social media software, social media tool, social media management software, social media marketing tool, social media marketing software">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- favicon -->
+<link rel="icon" type="image/x-icon" href="{% static 'asset/favicon.png' %}">
+
+<!-- style section -->
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style media="screen">
+	.BannerImgSec {
+			position: relative;
+			background: url({% static 'asset/img-banner-home.png' %}) no-repeat;
+			background-size: cover!important;
+			height: 650px;
+	}
+</style>
+</head>
+<body onload="addDynamicClass();">
+
+	<!-- header starts here -->
+	<header class="headerDark">
+		<div class="container">
+			<h2 class="logo">
+				<a href="{% url 'home:index' %}"> <img class="logoLight"
+					src="{% static 'asset/logo-dataforum-red.png' %}"
+					title="DataForum" alt="DataForum">
+				</a>
+			</h2>
+			{% if request.user.is_authenticated %}
+			<nav>
+				<ul>
+					<li><a href="#">{{ request.user.username }}</a>
+						<div class="subMenu">
+							<ul>
+								<li><a href="#">设置</a></li>
+								<li><a href="#">个人中心</a></li>
+								<li><a href="#">我的文章</a></li>
+								<li><a href="{% url 'home:change_password' %}">修改密码</a></li>
+								<li><a href="{% url 'home:logout' %}">注销</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</nav>
+			{% else %}
+			<div class="authentication">
+				<ul>
+					<li><a href="{% url 'home:register' %}" class="btn">注册</a></li>
+          <li><a href="{% url 'home:login' %}" class="btn">登陆</a></li>
+				</ul>
+			</div>
+			{% endif %}
+			<nav>
+        <ul>
+					<li><a href="#">产品与服务</a>
+            <div class="subMenu">
+              <ul>
+                <li><a href="#">系统及数据库服务</a></li>
+                <li><a href="#">网络服务</a></li>
+                <li><a href="#">虚拟化服务</a></li>
+                <li><a href="#">开发服务</a></li>
+                <li><a href="#">大数据研发与分析服务</a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="#">资源共享</a>
+            <div class="subMenu">
+              <ul>
+                <li><a href="#">系统</a></li>
+                <li><a href="#">数据库</a></li>
+                <li><a href="#">网络</a></li>
+                <li><a href="#">虚拟化</a></li>
+                <li><a href="#">云计算</a></li>
+                <li><a href="#">编程</a></li>
+								<li><a href="#">爬虫</a></li>
+              </ul>
+            </div>
+          </li>
+					<li><a href="#">数据园</a>
+						<div class="subMenu">
+							<ul>
+								<li><a href="#">Hadoop</a></li>
+								<li><a href="#">Spark</a></li>
+								<li><a href="#">Docker</a></li>
+								<li><a href="#">大数据分析</a></li>
+								<li><a href="#">大数据可视化</a></li>
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">博客</a></li>
+          <li><a href="#">关于我们</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<header class="headerDark headFix">
+		<div class="container">
+			<h2 class="logo">
+				<a href="{% url 'home:index' %}"> <img class="logoDark"
+					src="{% static 'asset/logo-dataforum-blue.png' %}"
+					title="DataForum" alt="DataForum">
+				</a>
+			</h2>
+			{% if request.user.is_authenticated %}
+			<nav>
+				<ul>
+					<li><a href="#">{{ request.user.username }}</a>
+						<div class="subMenu">
+							<ul>
+								<li><a href="#">设置</a></li>
+								<li><a href="#">个人中心</a></li>
+								<li><a href="#">我的文章</a></li>
+								<li><a href="{% url 'home:change_password' %}">修改密码</a></li>
+								<li><a href="{% url 'home:logout' %}">注销</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</nav>
+			{% else %}
+			<div class="authentication">
+				<ul>
+					<li><a href="{% url 'home:register' %}" class="btn">注册</a></li>
+					<li><a href="{% url 'home:login' %}" class="btn">登陆</a></li>
+				</ul>
+			</div>
+			{% endif %}
+			<nav>
+        <ul>
+					<li><a href="#">产品与服务</a>
+            <div class="subMenu">
+              <ul>
+                <li><a href="#">系统及数据库服务</a></li>
+                <li><a href="#">网络服务</a></li>
+                <li><a href="#">虚拟化服务</a></li>
+                <li><a href="#">开发服务</a></li>
+                <li><a href="#">大数据研发与分析服务</a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="#">资源共享</a>
+            <div class="subMenu">
+              <ul>
+                <li><a href="#">系统</a></li>
+                <li><a href="#">数据库</a></li>
+                <li><a href="#">网络</a></li>
+                <li><a href="#">虚拟化</a></li>
+                <li><a href="#">云计算</a></li>
+                <li><a href="#">编程</a></li>
+								<li><a href="#">爬虫</a></li>
+              </ul>
+            </div>
+          </li>
+					<li><a href="#">数据园</a>
+						<div class="subMenu">
+							<ul>
+								<li><a href="#">Hadoop</a></li>
+								<li><a href="#">Spark</a></li>
+								<li><a href="#">Docker</a></li>
+								<li><a href="#">大数据分析</a></li>
+								<li><a href="#">大数据可视化</a></li>
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">博客</a></li>
+          <li><a href="#">关于我们</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<!-- container -->
+	<div class="main">
+		<!-- banner section -->
+		<section>
+			<div class="BannerImgSec">
+				<div class="BannerCon">
+					<div class="tableDisplay">
+						<div class="vCenter">
+							<div class="container">
+								<h1>
+									探索, 发现, 欣赏<u>大数据</u>之美<br>
+									<span>
+                    数据乐园是一片乐土，让你的数据在这里成长，生值。 <br>
+                    数据乐园竭诚为您服务，带您探索、挖掘数据的价值，伴随您的成长！
+									</span>
+								</h1>
+								<div class="btnBlock">
+									<a href="{% url 'home:login' %}" class="btn ">开启大数据之门</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="" class="icon-arrow-down arrowDown"></a>
+			</div>
+		</section>
+
+		<div class="listSec">
+			<div class="container">
+				<figure class="pyramid">
+					<img src="{% static 'asset/pyramid.png' %}">
+				</figure>
+				<h2>
+					数据乐园  让您的企业在这里成长！
+				</h2>
+
+				<ul>
+					<li><i><img src="{% static 'asset/icon-database.svg' %}"></i>
+						<h4>系统、数据库、网络</h4>
+						<p>数据乐园专注系统、数据库、网络方向研发，为企事业单位提供高质量24x7的咨询、培训与运维服务</p></li>
+					<li><i><img src="{% static 'asset/icon-cloud.svg' %}"></i>
+						<h4>云计算与虚拟化</h4>
+						<p>为您节省成本，提高资源利用价值，更可靠的服务</p></li>
+					<li><i><img src="{% static 'asset/icon-analytics.svg' %}"></i>
+						<h4>数据分析及可视化</h4>
+						<p>让您发现数据的美，找到数据的价值，让数据想发动机一样产生不断提高效益</p></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- feature list -->
+		<div class="listSec">
+			<div class="container" class="col-xs-6 col-sm-4">
+				<h2>让数据乐园帮您读懂您的数据！</h2>
+				<ul>
+					<li>
+						<div id="char1">
+
+						</div>
+					</li>
+					<li>
+						<div id="char2">
+
+						</div>
+					</li>
+				</ul>
+
+				<ul>
+					<li>
+						<div id="char3">
+
+						</div>
+					</li>
+					<li>
+						<div id="char4"></div>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<ul class="footContent">
+					<li>
+						<h4>数据乐园</h4>
+						<ul>
+							<li><a href="#" target="_parent">博客</a></li>
+							<li><a href="#">咨询</a></li>
+							<li><a href="#">服务</a></li>
+              <li><a href="#">关于我们</a></li>
+						</ul>
+					</li>
+					<li>
+						<h4>产品及服务</h4>
+						<ul>
+              <li><a href="#">系统及数据库服务</a></li>
+              <li><a href="#">网络服务</a></li>
+              <li><a href="#">虚拟化服务</a></li>
+              <li><a href="#">大数据研发与分析服务</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<h4>大数据格调</h4>
+						<ul>
+              <li><a href="#">Hadoop</a></li>
+              <li><a href="#">Spark</a></li>
+              <li><a href="#">Docker</a></li>
+              <li><a href="#">大数据库可视化</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<h4>站点连接</h4>
+						<ul>
+							<li><a href="https://www.baidu.com">百度</a></li>
+							<li><a href="https://www.google.com">谷歌</a></li>
+							<li><a href="https://www.docker.com/">DockerHub</a></li>
+							<li><a href="https://www.github.com">GitHub</a></li>
+						</ul>
+					</li>
+					<li>
+						<h4>联系我们</h4>
+						<ul>
+							<li><a href="/admin">管理员</a></li>
+							<li>(+86) 15285649896<small class="phone-toll-free"> </small></li>
+							<li><a href="mailto:ychenid@live.com">ychenid@live.com</a></li>
+							<li class="address">贵州省贵阳市花溪区<br> 550025
+							</li>
+						</ul>
+					</li>
+				</ul>
+        <div class="footLink text-center">
+					<small>Copyright © 2017 Dataforum. All rights reserved.</small>
+					<ul>
+						<li><a href="#">Privacy</a></li> /
+						<li><a href="#">Terms of Use</a></li> /
+						<li><a href="#">Site Map</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- script section -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	<script src="{% static 'js/highcharts.js' %}" charset="utf-8"></script>
+	<script src="{% static 'js/exporting.js' %}" charset="utf-8"></script>
+	<script type="text/javascript">
+			Highcharts.chart('char1', {
+			title: {
+					text: 'Solar Employment Growth by Sector, 2010-2016'
+			},
+
+			credits: {
+					enabled: false
+			},
+
+			subtitle: {
+					text: 'Source: thesolarfoundation.com'
+			},
+
+			yAxis: {
+					title: {
+							text: 'Number of Employees'
+					}
+			},
+			legend: {
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'middle'
+			},
+
+			plotOptions: {
+					series: {
+							pointStart: 2010
+					}
+			},
+
+			series: [{
+					name: 'Installation',
+					data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+			}, {
+					name: 'Manufacturing',
+					data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+			}, {
+					name: 'Sales & Distribution',
+					data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+			}, {
+					name: 'Project Development',
+					data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+			}, {
+					name: 'Other',
+					data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+			}]
+
+		});
+		Highcharts.chart('char2', {
+
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Total fruit consumtion, grouped by gender'
+    },
+
+		credits: {
+				enabled: false
+		},
+
+    xAxis: {
+        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+    },
+
+    yAxis: {
+        allowDecimals: false,
+        min: 0,
+        title: {
+            text: 'Number of fruits'
+        }
+    },
+
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.x + '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                'Total: ' + this.point.stackTotal;
+        }
+    },
+
+    plotOptions: {
+        column: {
+            stacking: 'normal'
+        }
+    },
+
+    series: [{
+        name: 'John',
+        data: [5, 3, 4, 7, 2],
+        stack: 'male'
+    }, {
+        name: 'Joe',
+        data: [3, 4, 4, 2, 5],
+        stack: 'male'
+    }, {
+        name: 'Jane',
+        data: [2, 5, 6, 2, 1],
+        stack: 'female'
+    }, {
+        name: 'Janet',
+        data: [3, 0, 4, 4, 3],
+        stack: 'female'
+    }]
+});
+Highcharts.chart('char3', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: 'Browser market shares. January, 2015 to May, 2015'
+    },
+
+		credits: {
+				enabled: false
+		},
+
+    subtitle: {
+        text: 'Click the slices to view versions. Source: netmarketshare.com.'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}: {point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Microsoft Internet Explorer',
+            y: 56.33,
+            drilldown: 'Microsoft Internet Explorer'
+        }, {
+            name: 'Chrome',
+            y: 24.03,
+            drilldown: 'Chrome'
+        }, {
+            name: 'Firefox',
+            y: 10.38,
+            drilldown: 'Firefox'
+        }, {
+            name: 'Safari',
+            y: 4.77,
+            drilldown: 'Safari'
+        }, {
+            name: 'Opera',
+            y: 0.91,
+            drilldown: 'Opera'
+        }, {
+            name: 'Proprietary or Undetectable',
+            y: 0.2,
+            drilldown: null
+        }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'Microsoft Internet Explorer',
+            id: 'Microsoft Internet Explorer',
+            data: [
+                ['v11.0', 24.13],
+                ['v8.0', 17.2],
+                ['v9.0', 8.11],
+                ['v10.0', 5.33],
+                ['v6.0', 1.06],
+                ['v7.0', 0.5]
+            ]
+        }, {
+            name: 'Chrome',
+            id: 'Chrome',
+            data: [
+                ['v40.0', 5],
+                ['v41.0', 4.32],
+                ['v42.0', 3.68],
+                ['v39.0', 2.96],
+                ['v36.0', 2.53],
+                ['v43.0', 1.45],
+                ['v31.0', 1.24],
+                ['v35.0', 0.85],
+                ['v38.0', 0.6],
+                ['v32.0', 0.55],
+                ['v37.0', 0.38],
+                ['v33.0', 0.19],
+                ['v34.0', 0.14],
+                ['v30.0', 0.14]
+            ]
+        }, {
+            name: 'Firefox',
+            id: 'Firefox',
+            data: [
+                ['v35', 2.76],
+                ['v36', 2.32],
+                ['v37', 2.31],
+                ['v34', 1.27],
+                ['v38', 1.02],
+                ['v31', 0.33],
+                ['v33', 0.22],
+                ['v32', 0.15]
+            ]
+        }, {
+            name: 'Safari',
+            id: 'Safari',
+            data: [
+                ['v8.0', 2.56],
+                ['v7.1', 0.77],
+                ['v5.1', 0.42],
+                ['v5.0', 0.3],
+                ['v6.1', 0.29],
+                ['v7.0', 0.26],
+                ['v6.2', 0.17]
+            ]
+        }, {
+            name: 'Opera',
+            id: 'Opera',
+            data: [
+                ['v12.x', 0.34],
+                ['v28', 0.24],
+                ['v27', 0.17],
+                ['v29', 0.16]
+            ]
+        }]
+    }
+});
+Highcharts.chart('char4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '响应式图表'
+        },
+        subtitle: {
+            text: '响应式切换位置和样式'
+        },
+        legend: {
+            align: 'right',
+            verticalAlign: 'middle',
+            layout: 'vertical'
+        },
+        xAxis: {
+            categories: ['苹果', '橘子', '香蕉'],
+            labels: {
+                x: -10
+            }
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: '金额'
+            }
+        },
+        series: [{
+            name: '圣诞平安夜',
+            data: [1, 4, 3]
+        }, {
+            name: '圣诞节晚餐前一天',
+            data: [6, 4, 2]
+        }, {
+            name: '圣诞节晚餐后一天',
+            data: [8, 4, 3]
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
+                    },
+                    yAxis: {
+                        labels: {
+                            align: 'left',
+                            x: 0,
+                            y: -5
+                        },
+                        title: {
+                            text: null
+                        }
+                    },
+                    subtitle: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                }
+            }]
+        }
+    });
+    $('#small').click(function () {
+        chart.setSize(400, 300);
+    });
+    $('#large').click(function () {
+        chart.setSize(800, 300);
+    });
+	</script>
+</body>
+</html>

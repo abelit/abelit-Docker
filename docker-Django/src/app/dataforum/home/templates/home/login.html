@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh">
+{% load staticfiles %}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>用户登陆</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'asset/favicon.png' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+	<style type="text/css">
+		html,body {
+		    height: 100%;
+		}
+		html {
+		    display: table;
+		    margin: auto;
+		}
+		body {
+		    display: table-cell;
+		    vertical-align: middle;
+		}
+		.margin {
+		  margin: 0 !important;
+		}
+	</style>
+</head>
+<body>
+	<div id="login-page" class="row">
+	    <div class="col s12 z-depth-6 card-panel">
+	      <form class="login-form" method="post">
+					{% csrf_token %}
+	        <div class="row">
+	          <div class="input-field col s12 center">
+	            <img src="{% static 'asset/logo-dataforum-orange-login.png' %}" alt="" class="responsive-img valign profile-image-login">
+	            <p class="center login-form-text">欢迎登陆数据园，我们已经准备为您提供服务！</p>
+	            <div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="{% url 'home:index' %}" title="数园之家"><span> 数园之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="{% url 'home:register' %}" title="注册页面" target="_blank"><span> 注册页面</span></a>
+			</div>
+	          </div>
+	        </div>
+					<div class="row margin">
+	          <div class="input-field col s12">
+	            <i class="mdi-social-person-outline prefix"></i>
+	            <input class="validate" id="username" type="text"
+								required
+                data-parsley-required
+                data-parsley-required-message="Please enter an username or email">
+	            <label for="username" data-error="wrong" data-success="right" class="center-align">用户名或邮箱</label>
+	          </div>
+	        </div>
+	        <div class="row margin">
+	          <div class="input-field col s12">
+	            <i class="mdi-action-lock-outline prefix"></i>
+	            <input id="password" type="password"
+							required
+							data-parsley-required
+							data-parsley-required-message="Please enter a password"
+							data-parsley-minlength="8"
+							data-parsley-min-message="Please enter at least 8 characters">
+	            <label for="password">密码</label>
+	          </div>
+	        </div>
+					<div class="row margin">
+					 <div class="input-field col">
+						 <i class="mdi-action-info-outline prefix"></i>
+						 <input type="text" name="vcode" value="" id="verify-code">
+						 <label for="password-again">验证码</label>
+					 </div>
+					 <div>
+						<img src="{% url 'home:verify_code' %}" alt="" id="vcode">
+						<label for="password-again">点击更换验证码</label>
+					 </div>
+					</div>
+
+					<div class="row margin center-align"><span id="message"></span></div>
+
+	        <div class="row">
+	          <div class="input-field col s12 m12 l12  login-text">
+	              <input type="checkbox" id="remember-me" />
+	              <label for="remember-me">记住用户名和密码</label>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="input-field col s12">
+	             <button type="button" name="button" id="submit" class="btn waves-effect waves-light col s12">登陆</button>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="input-field col s6 m6 l6">
+	            <p class="margin medium-small"><a href="{% url 'home:register' %}">现在注册!</a></p>
+	          </div>
+	          <div class="input-field col s6 m6 l6">
+	              <p class="margin right-align medium-small"><a href="{% url 'home:forgot_password' %}">忘记密码?</a></p>
+	          </div>
+
+	      </form>
+	    </div>
+	  </div>
+	  </div>
+
+	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				var username = $("#username").val();
+				var password = $("#password").val();
+				var verify_code = $("#verify-code").val();
+				var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+				function csrfSafeMethod(method) {
+						// these HTTP methods do not require CSRF protection
+						return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
+				$.ajaxSetup({
+						beforeSend: function(xhr, settings) {
+								if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+										xhr.setRequestHeader("X-CSRFToken", csrftoken);
+								}
+						}
+				});
+
+				if (username == '' || password == '') {
+					$("#message").css({"color":"red", "text-align":"center"});
+					$("#message").html("用户名与密码不能为空！");
+					return;
+				}
+
+				$.ajax({
+					type: "POST",
+					url: "{% url 'home:login' %}",
+					data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken, 'verify_code': verify_code},
+					dataType: "json",
+					success: function(result){
+						if (result.status == 'ok'){
+							$("#message").css({"color":"green", "text-align":"center"});
+							$("#message").html(result.message);
+							// $("#message").delay(3000);
+							window.location.href = "{{ nextpage }}";
+						} else {
+							$("#message").css({"color":"red", "text-align":"center"});
+							$("#message").html(result.message);
+						}
+					}
+				});
+
+			});
+		});
+		// 添加点击事件 鼠标浮动时变成小手
+		$("#vcode,#submit").css('cursor', 'pointer').click(function () {
+			// 获取到图片的src路径  换一个新的路径   此代码相当与在原来的基础上增加数据
+			$('#vcode').attr('src', $("#vcode").attr('src')+'?1');
+		});
+</script>
+</body>
+</html>

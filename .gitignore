@@ -7,3 +7,4 @@ docker-GoWeb/data/*
 docker-Node/data/*
 docker-Django/data/mysqldb/*
 **/__pycache__
+**/.DS_Store

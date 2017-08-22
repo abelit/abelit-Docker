@@ -11,8 +11,13 @@ services:
       MYSQL_USER: django
       MYSQL_PASSWORD: django
 
+### Django Container ####################################
   django:
-    image: django
+    build:
+        context: ./abelit_django
+        args:
+            - PIP_UPGRADE=true
+            - INSTALL_PILLOW_PACKAGE=true
     command: python ./usr/src/app/dataforum/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src/app:/usr/src/app
@@ -20,3 +25,19 @@ services:
       - mysql
     ports:
       - "8000:8000"
+
+### phpMyAdmin Container ####################################
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      # MYSQL_USER: django
+      # MYSQL_PASSWORD: django
+      # MYSQL_ROOT_PASSWORD: django
+    ports:
+      - "8080:80"
+    links:
+      # for mysql container
+      - "mysql"
+      # for mariadb container
+      # - "mariadb:db"
