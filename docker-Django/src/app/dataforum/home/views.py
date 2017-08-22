@@ -111,22 +111,39 @@ def logout(request):
     auth.logout(request)
     return redirect('/accounts/login')
 
-# 忘记密码，发送邮件
-def forgot_password(request):
-    if request.method == 'POST':
-        email = request.POST['email']
+# # 忘记密码，发送邮件
+# def forgot_password(request):
+#     if request.method == 'POST':
+#         email = request.POST['email']
+#
+#         db_user_byemail = User.objects.filter(email=email)
+#
+#         # 如果该邮箱已经注册，则发送重置密码链接到改邮箱，否则返回错误
+#         if not db_user_byemail.exists():
+#             return JsonResponse({"status": "no", "message": email+"未被注册，请使用注册邮箱！"})
+#
+#         # 发送重置链接到邮件，并返回邮件发送状态
+#         send_mail('重置密码','这里是重置密码链接。。。','ychenid@163.com',['ychenid@126.com'],fail_silently=False)
+#         return JsonResponse({"status": "ok", "message": "重置密码链接已经发送到： "+email+" ，<br/>请登录您的邮箱点击重置密码链接！"})
+#
+#     return render(request, 'home/forgot_password.html')
+#
+# def reset_password(request):
+#     username = "django"
+#     password = 'cy123456'
+#     # user = auth.authenticate(username=username, password=password)
+#
+#     user = User.objects.get(username=username)
+#
+#     db_password = user.password
+#
+#     tokens = default_token_generator.make_token(user)
+#
+#     result1 = default_token_generator.check_token(user,tokens)
+#
+#
+#     return HttpResponse(db_password)
 
-        db_user_byemail = User.objects.filter(email=email)
-
-        # 如果该邮箱已经注册，则发送重置密码链接到改邮箱，否则返回错误
-        if not db_user_byemail.exists():
-            return JsonResponse({"status": "no", "message": email+"未被注册，请使用注册邮箱！"})
-
-        # 发送重置链接到邮件，并返回邮件发送状态
-        send_mail('重置密码','这里是重置密码链接。。。','ychenid@163.com',['ychenid@126.com'],fail_silently=False)
-        return JsonResponse({"status": "ok", "message": "重置密码链接已经发送到： "+email+" ，<br/>请登录您的邮箱点击重置密码链接！"})
-
-    return render(request, 'home/forgot_password.html')
 
 # 重置密码
 @login_required
@@ -149,24 +166,6 @@ def change_password(request):
         return JsonResponse(result)
 
     return render(request, 'home/change_password.html')
-
-
-def reset_password(request):
-    username = "django"
-    password = 'cy123456'
-    # user = auth.authenticate(username=username, password=password)
-
-    user = User.objects.get(username=username)
-
-    db_password = user.password
-
-    tokens = default_token_generator.make_token(user)
-
-    result1 = default_token_generator.check_token(user,tokens)
-
-
-    return HttpResponse(db_password)
-
 
 
 def verify_code(request):

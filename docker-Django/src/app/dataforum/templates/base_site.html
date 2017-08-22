@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a>abelit</h1>
+<div class="row">
+  <div class="input-field col s12 center">
+  <h2 id="site-name" class="center login-form-text"><a href="{% url 'home:index' %}">{{ site_header|default:_('Dataforum账号管理') }}</a></h2>
+  </div>
+</div>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

@@ -24,10 +24,8 @@ urlpatterns = [
     url(r'^accounts/login/', home_views.login, name='login'),
     url(r'^accounts/logout/', home_views.logout, name='logout'),
     url(r'^accounts/register/', home_views.register, name='register'),
-    url(r'^accounts/forgot_password/', home_views.forgot_password, name='forgot_password'),
     url(r'^accounts/change_password/', home_views.change_password, name='change_password'),
     url(r'^accounts/verify_code/', home_views.verify_code, name='verify_code'),
-    # url(r'^accounts/reset_password/', home_views.reset_password, name='reset_password'),
 
     # test ajax
     url(r'^add/$', home_views.add, name='home_add'),
