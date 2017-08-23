@@ -35,14 +35,14 @@
         var a = $("#a").val();
         var b = $("#b").val();
 
-        $.get("{% url 'home:home_add_ajax' %}",{'a':a,'b':b}, function(ret){
+        $.get("{% url 'home:ajax_add' %}",{'a':a,'b':b}, function(ret){
             $('#result').html(ret);
         })
       });
 
       // 列表 list
       $('#list').click(function(){
-          $.getJSON("{% url 'home:home_ajax_list' %}",function(ret){
+          $.getJSON("{% url 'home:ajax_list' %}",function(ret){
             //返回值 ret 在这里是一个列表
             for (var i = ret.length - 1; i >= 0; i--) {
               // 把 ret 的每一项显示在网页上
@@ -53,7 +53,7 @@
 
       // 字典 dict
       $('#dict').click(function(){
-          $.getJSON("{% url 'home:home_ajax_dict' %}",function(ret){
+          $.getJSON("{% url 'home:ajax_dict' %}",function(ret){
               //返回值 ret 在这里是一个字典
               $('#dict_result').append(ret.twz + '<br>');
               $('#dict_result').append(ret.zqxt + '<br>');
@@ -101,8 +101,8 @@
       if (c != '' && d != '') {
         $.ajax({
           type: "POST",
-          url: "{% url 'home:home_time_ajax' %}",
-          data: {'c': c, 'd': d, 'e':99},
+          url: "{% url 'home:ajax_time' %}",
+          data: {'c': c, 'd': d},
           dataType: "json",
           success: function(result){
             // alert(result.result);

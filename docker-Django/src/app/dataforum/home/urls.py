@@ -18,12 +18,14 @@ from home import views as home_views
 
 urlpatterns = [
     url(r'^$', home_views.index, name='index'),
-    
+
     # test ajax
-    url(r'^add/$', home_views.add, name='home_add'),
-    url(r'^add/add_ajax/$', home_views.add_ajax, name='home_add_ajax'),
-    url(r'^time/time_ajax/$', home_views.time_ajax, name='home_time_ajax'),
-    url(r'^ajax_list/$', home_views.ajax_list, name='home_ajax_list'),
-    url(r'^ajax_dict/$', home_views.ajax_dict, name='home_ajax_dict'),
-    url(r'^list_user/$', home_views.list_user, name='list_user'),
+    url(r'^ajax_test/$', home_views.ajax_test, name='ajax_test'),
+    url(r'^ajax_test/ajax_add/$', home_views.ajax_add, name='ajax_add'),
+    url(r'^ajax_test/ajax_time/$', home_views.ajax_time, name='ajax_time'),
+    url(r'^ajax_list/$', home_views.ajax_list, name='ajax_list'),
+    url(r'^ajax_dict/$', home_views.ajax_dict, name='ajax_dict'),
+
+    # query users from database
+    url(r'^user_list/$', home_views.user_list, name='user_list'),
 ]

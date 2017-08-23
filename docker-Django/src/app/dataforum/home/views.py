@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+import json
 
 
 # Create your views here.
@@ -11,27 +12,22 @@ def index(request):
 
 # test ajax
 @login_required
-def add(request):
-    return render(request, 'home/testajax.html')
+def ajax_test(request):
+    return render(request, 'home/ajax_test.html')
 
-def add_ajax(request):
+def ajax_add(request):
     a = request.GET['a']
     b = request.GET['b']
     a = int(a)
     b = int(b)
-    # return HttpResponse(a)
     return HttpResponse(str(a+b))
 
-def time_ajax(request):
-    # c = request.POST['c']
+def ajax_time(request):
+    c = request.POST['c']
     d = request.POST['d']
-    c = request.POST.get('c')
-    e = request.POST.get('e')
-    # d = request.POST.get('d')
     c = int(c)
     d = int(d)
-    e = int(e)
-    return JsonResponse({"result":str(c*e)})
+    return JsonResponse({"result":str(c*d)})
 
 def ajax_list(request):
     a = range(100)
@@ -42,10 +38,7 @@ def ajax_dict(request):
     return JsonResponse(name_dict)
 
 @login_required
-def list_user(request):
-    u = User.objects.all()
+def user_list(request):
+    users = User.objects.all()
 
-    return render(request, 'home/user.html', {"userlist":u})
-
-def list_user_handler(request):
-    pass
+    return render(request, 'home/user_list.html', {"users":users})

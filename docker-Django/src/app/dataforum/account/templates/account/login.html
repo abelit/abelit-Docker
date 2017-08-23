@@ -110,6 +110,8 @@
 				var password = $("#password").val();
 				var verify_code = $("#verify-code").val();
 				var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+
+				// Django 加入这部分才能在视图中接收到ajax POST方式提交过去的数据  //开始部分
 				function csrfSafeMethod(method) {
 						// these HTTP methods do not require CSRF protection
 						return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -121,6 +123,7 @@
 								}
 						}
 				});
+				// Django 加入这部分才能在视图中接收到ajax POST方式提交过去的数据 //结束部分
 
 				if (username == '' || password == '') {
 					$("#message").css({"color":"red", "text-align":"center"});
