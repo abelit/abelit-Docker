@@ -19,6 +19,7 @@ services:
             - PIP_UPGRADE=true
             - INSTALL_PILLOW_PACKAGE=true
             - INSTALL_XHTML_PDF_PACKAGE=true
+            - INSTALL_Oracle_PACKAGE=true
     command: python ./usr/src/app/dataforum/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src/app:/usr/src/app

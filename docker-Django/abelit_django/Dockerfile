@@ -31,3 +31,14 @@ RUN if [ ${INSTALL_XHTML_PDF_PACKAGE} = true ]; then \
     # run the install
     pip install --pre --no-cache-dir xhtml2pdf --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn \
 ;fi
+
+############################################################
+# PDF生产包 cx_Oracle
+############################################################
+# Check if cx_Oracle packages install need to be ran
+ARG INSTALL_Oracle_PACKAGE=false
+ENV INSTALL_Oracle_PACKAGE ${INSTALL_Oracle_PACKAGE}
+RUN if [ ${INSTALL_Oracle_PACKAGE} = true ]; then \
+    # run the install
+    pip install --no-cache-dir cx_Oracle --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn \
+;fi

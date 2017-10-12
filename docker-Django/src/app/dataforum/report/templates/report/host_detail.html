@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Server Detail</title>
+  </head>
+  <body>
+    <h1>服务器概览</h1>
+      <ul>
+        <li>{{ server.server_name }}</li>
+        <li>{{ server.ipaddress }}</li>
+        <li>{{ server.username }}</li>
+        <li>{{ server.password }}</li>
+      </ul>
+    <h1>应用与服务</h1>
+      {% for oracle in oracleserver %}
+      <ul>
+        <li>{{ oracle.service_name }}</li>
+        <li>{{ oracle.db_user }}</li>
+        <li>{{ oracle.db_password }}</li>
+        <li>{{ oracle.db_port }}</li>
+        <a href="{% url 'report:oracle_del' oracle.id %}">删除实例</a>
+      </ul>
+      {% endfor %}
+
+  <a href="{% url 'report:oracle_add' server.id %}">新增Oracle实例</a>
+  </body>
+</html>
