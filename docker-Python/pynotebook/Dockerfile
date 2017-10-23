@@ -22,7 +22,7 @@ RUN if [ ${INSTALL_SCIENCE_PACKAGE} = true ]; then \
 ;fi
 
 ############################################################
-# 数据库驱动 
+# 数据库驱动
 ############################################################
 
 # Check if sqlite3 driver need to be used
@@ -103,4 +103,20 @@ ENV INSTALL_SCRAPY ${INSTALL_SCRAPY}
 RUN if [ ${INSTALL_SCRAPY} = true ]; then \
     # run the install
     pip install --no-cache-dir scrapy --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn \
+;fi
+
+# Check if BeautifulSoup need to be ran
+ARG INSTALL_BS4=false
+ENV INSTALL_BS4 ${INSTALL_BS4}
+RUN if [ ${INSTALL_BS4} = true ]; then \
+    # run the install
+    pip install --no-cache-dir bs4 --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn \
+;fi
+
+# Check if NLTK need to be ran
+ARG INSTALL_NLTK=false
+ENV INSTALL_NLTK ${INSTALL_NLTK}
+RUN if [ ${INSTALL_NLTK} = true ]; then \
+    # run the install
+    pip install --no-cache-dir nltk --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn \
 ;fi

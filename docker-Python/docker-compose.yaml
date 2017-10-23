@@ -26,6 +26,8 @@ services:
                 - INSTALL_REDIS=false
                 - INSTALL_GRAPHIC=false
                 - INSTALL_SCRAPY=false
+                - INSTALL_BS4=false
+                - INSTALL_NLTK=false
                 - INSTALL_DJANGO=false
                 - INSTALL_CONFIGPARSER=false
         command: jupyter notebook
