@@ -12,6 +12,17 @@
   <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
   <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+    .df-logo{
+  　　/*display: block;
+  　　max-width: 100%;*/
+  　　height: 40px;
+     width: 100px;
+     margin-top: 5px;
+     margin-right: 30px;
+     float: left;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,8 +34,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button> <a class="navbar-brand" href="#">我的运维平台</a>
+        </button>
+          <!-- <a class="navbar-brand" href="{% url 'home:index' %}">数园主页</a> -->
+          <a href="{% url 'home:index' %}"> <img class="img-responsive df-logo"
+  					src="{% static 'asset/logo-dataforum-red.png' %}"
+  					title="DataForum" alt="DataForum">
+  				</a>
+          <a class="navbar-brand" href="{% url 'report:host_list' %}">运维平台</a>
       </div>
+
       <div id="navbar" class="collapse navbar-collapse navbar-right">
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
@@ -61,25 +79,46 @@
       <div class="span2 col-md-2">
         <ul class="nav nav-stacked nav-pills">
           <li class="active">
-            <a href="{% url 'report:get_host_list' %}">主机管理</a>
+            <a href="{% url 'report:host_list' %}">仪表盘</a>
+          </li>
+          <li class="active">
+            <ul>
+              <li>
+                <a href="{% url 'report:host_list' %}">主机列表</a>
+              </li>
+              <li>
+                <a href="{% url 'report:host_list' %}">批量管理</a>
+              </li>
+            </ul>
           </li>
           <li class="active">
             <a href="#">数据库</a>
           </li>
           <li class="active">
-            <a href="#">系统安装</a>
-          </li>
-          <li class="active">
-            <a href="#">数据库安装</a>
-          </li>
-          <li class="active">
             <a href="#">应用部署</a>
+          </li>
+          <li class="active">
+            <a href="#">报表系统</a>
           </li>
           <li class="active">
             <a href="#">远程管理</a>
           </li>
           <li class="active">
+            <a href="#">用户权限</a>
+          </li>
+          <li class="active">
+            <a href="#">脚本管理</a>
+          </li>
+          <li class="active">
             <a href="#">运维报告</a>
+          </li>
+          <li class="active">
+            <a href="#">操作日志</a>
+          </li>
+          <li class="divider">
+          </li>
+          <li class="active">
+            <a href="#">使用帮助</a>
           </li>
 
           <li class="dropdown active">
@@ -92,12 +131,12 @@
                 <a href="#">设置栏目</a>
               </li>
               <li>
-                <a href="#">更多设置</a>
+                <a href="#">用户信息</a>
               </li>
               <li class="divider">
               </li>
               <li>
-                <a href="#">分割线</a>
+                <a href="#">设置</a>
               </li>
             </ul>
           </li>

@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html>
-{% load staticfiles %}
-  <head>
-    <meta charset="utf-8">
-    <title>Server</title>
-    <link rel="icon" type="image/x-icon" href="{% static 'asset/favicon.png' %}">
-  </head>
-  <body>
-    <div class="row">
+{% extends "report/base.html" %}
+
+{% block title %}新增主机{% endblock %}
+
+
+{% block content %}
+
+    <div class="cotainer">
       <div class="col s12 z-depth-6 card-panel">
-        <form action="" method="post">{% csrf_token %}
+        <h3>请填写主机基本信息</h3>
+        <hr/>
+        <form class="form-horizontal form-border" action="" method="post">{% csrf_token %}
         {% for field in form %}
-        <div class="input-field col s12">
+        <div class="form-group row">
           {{ field.label_tag }}
           {{ field }}
           {{ field.errors }}
         </div>
         {% endfor %}
-        <input type="submit" value="Submit" />
+        <input type="submit" class="btn btn-primary" value="添加此主机" /><a href="{% url 'report:host_list' %}" class="btn btn-primary">返回主机列表</a>
        </form>
     </div>
   </div>
-  </body>
-</html>
+{% endblock %}

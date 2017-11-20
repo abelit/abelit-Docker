@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.template.context_processors import request
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -24,14 +25,32 @@ def host_add(request):
         if form.is_valid():
             cleaned_data = form.cleaned_data
             Host.objects.create(**cleaned_data)
+            return HttpResponseRedirect(reverse("report:host_list"))
     return render(request,'report/host_add.html',{'form':form})
 
-def get_host_list(request):
+def host_delete(request, id=None):
+    host = get_object_or_404(Host, pk=int(id))
+    host.delete()
+    return HttpResponseRedirect(reverse("report:host_list"))
+
+def host_update(request, id=None):
+    host = get_object_or_404(Host, pk=int(id))
+    if request.method == 'POST':
+        form = HostForm(request.POST, instance=host)
+        if form.is_valid():
+            host = form.save()
+            return HttpResponseRedirect(reverse("report:host_list"))
+    return render(request,'report/host_add.html',{'form':HostForm(instance=host)})
+
+def host_metric(request, id=None):
+    pass
+
+
+def host_list(request):
     """
     List all Hosts
     """
     host_list = Host.objects.all()
-    # host_list = Host.objects.all()
     paginator = Paginator(host_list,10)
 
     try:

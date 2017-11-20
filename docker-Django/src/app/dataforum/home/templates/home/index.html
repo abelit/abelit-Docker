@@ -43,10 +43,11 @@
 					<li><a href="#">{{ request.user.username }}</a>
 						<div class="subMenu">
 							<ul>
-								<li><a href="#">设置</a></li>
+								<li><a href="{% url 'report:host_list' %}">运维平台</a></li>
 								<li><a href="#">个人中心</a></li>
 								<li><a href="#">我的文章</a></li>
 								<li><a href="{% url 'password_change' %}">修改密码</a></li>
+								<li><a href="#">设置</a></li>
 								<li><a href="{% url 'logout' %}">注销</a></li>
 							</ul>
 						</div>

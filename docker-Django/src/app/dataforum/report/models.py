@@ -6,7 +6,7 @@ class Host(models.Model):
     ipaddress   = models.CharField(max_length=20)
     username    = models.CharField(max_length=50)
     password    = models.CharField(max_length=20)
-    ssh_port    = models.IntegerField()
+    ssh_port    = models.IntegerField(default=22)
     hostname    = models.CharField(max_length=45, blank=True)
     cpu         = models.CharField(max_length=45, blank=True)
     memory      = models.CharField(max_length=45, blank=True)

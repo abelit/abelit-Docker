@@ -20,9 +20,7 @@ urlpatterns = [
     url(r'^$', report_views.index, name='index'),
 
     url(r'^host/add/$',report_views.host_add, name='host_add'),
-    url(r'^host/list/$',report_views.get_host_list, name='get_host_list'),
-    
-    # url(r'^host/detail/(\d+)/$',report_views.get_host_detail, name='get_host_detail'),
-    # url(r'^host/oracle/add/(\d+)/$',report_views.oracle_add, name='oracle_add'),
-    # url(r'^host/oracle/del/(\d+)/$',report_views.oracle_del, name='oracle_del'),
+    url(r'^host/delete/(?P<id>\d+)/$',report_views.host_delete, name='host_delete'),
+    url(r'^host/update/(?P<id>\d+)/$',report_views.host_update, name='host_update'),
+    url(r'^host/list/$',report_views.host_list, name='host_list'),
 ]
