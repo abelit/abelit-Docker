@@ -31,7 +31,7 @@ def ajax_time(request):
 
 def ajax_list(request):
     a = range(100)
-    return JsonResponse(json.dumps(a))
+    return JsonResponse(a)
 
 def ajax_dict(request):
     name_dict = {'twz': 'Love python and Django', 'zqxt': 'I am teaching Django'}
@@ -40,5 +40,4 @@ def ajax_dict(request):
 @login_required
 def user_list(request):
     users = User.objects.all()
-
     return render(request, 'home/user_list.html', {"users":users})

@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^host/add/$',report_views.host_add, name='host_add'),
     url(r'^host/delete/(?P<id>\d+)/$',report_views.host_delete, name='host_delete'),
     url(r'^host/update/(?P<id>\d+)/$',report_views.host_update, name='host_update'),
+    url(r'^host/metric/(?P<id>\d+)/$',report_views.host_metric, name='host_metric'),
     url(r'^host/list/$',report_views.host_list, name='host_list'),
+    url(r'^host/detail/$',report_views.host_detail, name='host_detail')
 ]

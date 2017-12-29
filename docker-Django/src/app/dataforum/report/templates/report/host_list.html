@@ -22,7 +22,7 @@
               <th>操作</th>
            </tr>
        </thead>
-        {% for host in host_list %}
+        {% for host in hostmetric_list %}
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>{{ host.name }}</td>
@@ -31,7 +31,8 @@
           <td>{{ host.ssh_port }}</td>
           <td>{{ host.system }}</td>
           <td>{{ host.application }}</td>
-          <td>{{ host.status }}</td>
+          <td>{{ host.hostmetric_status }}</td>
+          <!-- <td id="host_status"><span id="status"></span></td> -->
           <td>{{ host.remark }}</td>
           <td>
             <a href="{% url 'report:host_update' host.id %}" class="btn btn-info btn-sm">编辑</a>
@@ -62,6 +63,15 @@
           </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#host_status").click(function(){
 
-
+          $.get("{% url 'report:host_metric' 15 %}", function(ret){
+              $('#status').html(ret);
+          });
+        });
+      });
+    </script>
 {% endblock %}
